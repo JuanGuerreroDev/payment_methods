@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Currency extends Model
 {
+    protected $primaryKey = 'iso';
+
     protected $table = "currencies";
 
     protected $fillable = [
