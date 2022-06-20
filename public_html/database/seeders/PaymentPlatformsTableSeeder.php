@@ -17,11 +17,11 @@ class PaymentPlatformsTableSeeder extends Seeder
         $paymentPlatforms = [
             [
                 'name' => 'Paypal',
-                'image' => 'img/payment-platforms/paypal.jpg'
+                'image' => 'img/payment-platforms/paypal.png'
             ],
             [
                 'name' => 'Stripe',
-                'image' => 'img/payment-platforms/stripe.jpg'
+                'image' => 'img/payment-platforms/stripe.png'
             ]
         ];
         PaymentPlatform::insert($paymentPlatforms);
