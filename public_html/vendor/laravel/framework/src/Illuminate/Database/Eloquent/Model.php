@@ -67,7 +67,7 @@ abstract class Model implements Arrayable, ArrayAccess, CanBeEscapedWhenCastToSt
      *
      * @var bool
      */
-    public $incrementing = true;
+    protected $incrementing = true;
 
     /**
      * The relations to eager load on every query.

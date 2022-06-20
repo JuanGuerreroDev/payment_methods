@@ -9,6 +9,8 @@ class Currency extends Model
 {
     protected $primaryKey = 'iso';
 
+    protected $incrementing = false;
+
     protected $table = "currencies";
 
     protected $fillable = [
