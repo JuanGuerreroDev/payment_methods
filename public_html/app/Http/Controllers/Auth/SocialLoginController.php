@@ -26,25 +26,32 @@ class SocialLoginController extends Controller
     }
 
     public function callback($provider){
-        $userSocial = Socialite::driver($provider)->user();
-        $user = User::where('email', $userSocial->getName())->first();
-        if (!$user){
-            $user = User::create([
-                'name' => $userSocial->getName(),
-                'email' => $userSocial->getEmail(),
-            ]);
+        if (request()->get('error')){
+            return redirect()->route('login');
         }
+        $userSocial = Socialite::driver($provider)->user();
+
         $socialProfile = SocialProfile::where('social_id', $userSocial->getId())
                                         ->where('social_name', $provider)->first();
+
         if (!$socialProfile){
-            SocialProfile::create([
+            $user = User::where('email', $userSocial->getEmail())->first();
+
+            if (!$user){
+                $user = User::create([
+                    'name' => $userSocial->getName(),
+                    'email' => $userSocial->getEmail(),
+                ]);
+            }
+
+            $socialProfile = SocialProfile::create([
                 'user_id' => $user->id,
                 'social_id' => $userSocial->getId(),
                 'social_name' => $provider,
                 'social_avatar' => $userSocial->getAvatar(),
             ]);
         }
-        Auth::login($user);
+        Auth::login($socialProfile->user);
         return redirect()->route('dashboard');
     }
 }
